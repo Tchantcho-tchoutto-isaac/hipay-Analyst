@@ -1,0 +1,129 @@
+name: HiPay API - CI Tests
+
+on:
+  # Lint + validation quand QA merge sur main
+  push:
+    branches: [main]
+
+  # Vérification avant merge QA
+  pull_request:
+    branches: [main]
+
+  # TNR quotidiens contre l'API HiPay - Lundi au Vendredi à 7h00 UTC
+  schedule:
+    - cron: '0 7 * * 1-5'
+
+  # Déclenchement manuel
+  workflow_dispatch:
+    inputs:
+      job:
+        description: 'Quel job lancer ?'
+        required: true
+        default: 'smoke'
+        type: choice
+        options:
+          - smoke
+          - tnr
+
+jobs:
+  # JOB 1 : Lint + Validation (push/PR du QA)
+  lint-and-validate:
+    name: Lint & Validation
+    runs-on: ubuntu-latest
+    if: github.event_name != 'schedule'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+
+  # JOB 2 : TNR quotidiens (cron - déploiement API DEV)
+  regression-tests:
+    name: TNR - Tests de Non-Regression
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Smoke tests rapides d'abord
+      - name: Run Smoke Tests
+        id: smoke
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          API_LOGIN: ${{ secrets.API_LOGIN }}
+          API_PASSWORD: ${{ secrets.API_PASSWORD }}
+        run: npm run test:smoke
+        continue-on-error: true
+
+      # TNR complets si smoke OK
+      - name: Run TNR complets
+        id: tnr
+        if: steps.smoke.outcome == 'success'
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          API_LOGIN: ${{ secrets.API_LOGIN }}
+          API_PASSWORD: ${{ secrets.API_PASSWORD }}
+        run: npm run test:report
+        continue-on-error: true
+
+      # Upload rapport
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tnr-report-${{ github.run_id }}
+          path: mochawesome-report/
+          retention-days: 30
+
+      # Notification email à l'équipe
+      - name: Send email notification
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: |
+            ${{ steps.tnr.outcome == 'success' && '✅' || '❌' }} HiPay TNR - ${{ github.run_id }}
+          to: ${{ secrets.TEAM_EMAIL }}
+          from: HiPay QA Bot <${{ secrets.MAIL_USERNAME }}>
+          body: |
+            🤖 Rapport TNR HiPay API Order
+            ========================================
+
+            📅 Date      : ${{ github.event.repository.updated_at }}
+            🌿 Branche   : ${{ github.ref_name }}
+            🔁 Run ID    : ${{ github.run_id }}
+
+            🚀 Smoke Tests  : ${{ steps.smoke.outcome == 'success' && '✅ PASSED' || '❌ FAILED' }}
+            🧪 TNR Complets : ${{ steps.tnr.outcome == 'success' && '✅ PASSED' || steps.smoke.outcome != 'success' && '⏭️ SKIPPED' || '❌ FAILED' }}
+
+            🔗 Voir le rapport complet :
+            https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+           

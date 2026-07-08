@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "strict": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "types": ["node"]
+  },
+  "include": [
+    "data/**/*.ts",
+    "pages/**/*.ts",
+    "step_definitions/**/*.ts",
+    "support/**/*.ts",
+    "codecept.conf.ts"
+  ],
+  "exclude": ["node_modules"]
+}

@@ -1,0 +1,264 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1783467138013' stop='1783467139970'>
+    <name>API Order HiPay - Payment Flow @payment:</name>
+    <title>API Order HiPay - Payment Flow @payment:</title>
+    <test-cases>
+        <test-case start='1783467138014' status='failed' stop='1783467138687'>
+            <name>Paiement valide avec les informations obligatoires uniquement @nominal @smoke</name>
+            <title>Paiement valide avec les informations obligatoires uniquement @nominal @smoke</title>
+            <labels>
+                <label name='language' value='javascript'/>
+                <label name='framework' value='codeceptjs'/>
+                <label name='tag' value='@payment'/>
+                <label name='tag' value='@nominal'/>
+                <label name='tag' value='@smoke'/>
+            </labels>
+            <parameters/>
+            <steps>
+                <step start='1783467138036' status='passed' stop='1783467138293'>
+                    <name>When j'envoie une requete POST sur "/v1/connector/order" avec un payload minimal valide ""</name>
+                    <title>When j'envoie une requete POST sur "/v1/connector/order" avec un payload minimal valide ""</title>
+                    <attachments/>
+                    <steps>
+                        <step start='1783467138036' status='passed' stop='1783467138287'>
+                            <name>I send post request "/v1/connector/order", {"order":{"order_id":"ORDER_1783467137976","transaction_type":"Debit","price":{"amount":100,"currency":"EUR"}},"pos_technical_info":{"device_information":{"serial_number":"1850320198","manufacturer":"PAX"},"terminal_transaction_display":{"protocol":"AppNepting"}}}</name>
+                            <title>I send post request "/v1/connector/order", {"order":{"order_id":"ORDER_1783467137976","transaction_type":"Debit","price":{"amount":100,"currency":"EUR"}},"pos_technical_info":{"device_information":{"serial_number":"1850320198","manufacturer":"PAX"},"terminal_transaction_display":{"protocol":"AppNepting"}}}</title>
+                            <attachments/>
+                            <steps/>
+                        </step>
+                    </steps>
+                </step>
+                <step start='1783467138293' status='failed' stop='1783467138687'>
+                    <name>Then la reponse doit avoir le statut 200 ""</name>
+                    <title>Then la reponse doit avoir le statut 200 ""</title>
+                    <attachments/>
+                    <steps>
+                        <step start='1783467138293' status='failed' stop='1783467138686'>
+                            <name>I see response code is 200</name>
+                            <title>I see response code is 200</title>
+                            <attachments/>
+                            <steps/>
+                        </step>
+                    </steps>
+                </step>
+            </steps>
+            <attachments/>
+            <failure>
+                <message>Response code is not the same as expected
+                
+                401 !== 200
+                </message>
+                <stack-trace>AssertionError [ERR_ASSERTION]: Response code is not the same as expected
+                
+                401 !== 200
+                
+                    at JSONResponse.seeResponseCodeIs (file:///C:/Users/PC/Desktop/hipay/hipay-Analyst/node_modules/codeceptjs/lib/helper/JSONResponse.js:97:12)
+                    at HelperStep.run (file:///C:/Users/PC/Desktop/hipay/hipay-Analyst/node_modules/codeceptjs/lib/step/helper.js:28:49)
+                    at file:///C:/Users/PC/Desktop/hipay/hipay-Analyst/node_modules/codeceptjs/lib/step/record.js:46:26</stack-trace>
+            </failure>
+        </test-case>
+        <test-case start='1783467138690' status='passed' stop='1783467138816'>
+            <name>Paiement refuse avec une authentification invalide @security @error</name>
+            <title>Paiement refuse avec une authentification invalide @security @error</title>
+            <labels>
+                <label name='language' value='javascript'/>
+                <label name='framework' value='codeceptjs'/>
+                <label name='tag' value='@payment'/>
+                <label name='tag' value='@security'/>
+                <label name='tag' value='@error'/>
+            </labels>
+            <parameters/>
+            <steps>
+                <step start='1783467138695' status='passed' stop='1783467138698'>
+                    <name>Given je suis authentifie avec des credentials invalides ""</name>
+                    <title>Given je suis authentifie avec des credentials invalides ""</title>
+                    <attachments/>
+                    <steps>
+                        <step start='1783467138695' status='passed' stop='1783467138695'>
+                            <name>I have request headers {"Authorization":"Basic aW52YWxpZDppbnZhbGlk"}</name>
+                            <title>I have request headers {"Authorization":"Basic aW52YWxpZDppbnZhbGlk"}</title>
+                            <attachments/>
+                            <steps/>
+                        </step>
+                    </steps>
+                </step>
+                <step start='1783467138698' status='passed' stop='1783467138814'>
+                    <name>When j'envoie une requete POST sur "/v1/connector/order" avec un payload minimal valide ""</name>
+                    <title>When j'envoie une requete POST sur "/v1/connector/order" avec un payload minimal valide ""</title>
+                    <attachments/>
+                    <steps>
+                        <step start='1783467138698' status='passed' stop='1783467138805'>
+                            <name>I send post request "/v1/connector/order", {"order":{"order_id":"ORDER_1783467137976","transaction_type":"Debit","price":{"amount":100,"currency":"EUR"}},"pos_technical_info":{"device_information":{"serial_number":"1850320198","manufacturer":"PAX"},"terminal_transaction_display":{"protocol":"AppNepting"}}}</name>
+                            <title>I send post request "/v1/connector/order", {"order":{"order_id":"ORDER_1783467137976","transaction_type":"Debit","price":{"amount":100,"currency":"EUR"}},"pos_technical_info":{"device_information":{"serial_number":"1850320198","manufacturer":"PAX"},"terminal_transaction_display":{"protocol":"AppNepting"}}}</title>
+                            <attachments/>
+                            <steps/>
+                        </step>
+                    </steps>
+                </step>
+                <step start='1783467138814' status='passed' stop='1783467138816'>
+                    <name>Then la reponse doit avoir le statut 401 ""</name>
+                    <title>Then la reponse doit avoir le statut 401 ""</title>
+                    <attachments/>
+                    <steps>
+                        <step start='1783467138814' status='passed' stop='1783467138815'>
+                            <name>I see response code is 401</name>
+                            <title>I see response code is 401</title>
+                            <attachments/>
+                            <steps/>
+                        </step>
+                    </steps>
+                </step>
+            </steps>
+            <attachments/>
+        </test-case>
+        <test-case start='1783467138820' status='failed' stop='1783467139339'>
+            <name>Paiement refuse avec un champ obligatoire manquant @error @validation</name>
+            <title>Paiement refuse avec un champ obligatoire manquant @error @validation</title>
+            <labels>
+                <label name='language' value='javascript'/>
+                <label name='framework' value='codeceptjs'/>
+                <label name='tag' value='@payment'/>
+                <label name='tag' value='@error'/>
+                <label name='tag' value='@validation'/>
+            </labels>
+            <parameters/>
+            <steps>
+                <step start='1783467138831' status='passed' stop='1783467138956'>
+                    <name>When j'envoie une requete POST sur "/v1/connector/order" sans le champ "amount" ""</name>
+                    <title>When j'envoie une requete POST sur "/v1/connector/order" sans le champ "amount" ""</title>
+                    <attachments/>
+                    <steps>
+                        <step start='1783467138831' status='passed' stop='1783467138952'>
+                            <name>I send post request "/v1/connector/order", {"order":{"order_id":"ORDER_1783467137976","transaction_type":"Debit","price":{"currency":"EUR"}},"pos_technical_info":{"device_information":{"serial_number":"1850320198","manufacturer":"PAX"},"terminal_transaction_display":{"protocol":"AppNepting"}}}</name>
+                            <title>I send post request "/v1/connector/order", {"order":{"order_id":"ORDER_1783467137976","transaction_type":"Debit","price":{"currency":"EUR"}},"pos_technical_info":{"device_information":{"serial_number":"1850320198","manufacturer":"PAX"},"terminal_transaction_display":{"protocol":"AppNepting"}}}</title>
+                            <attachments/>
+                            <steps/>
+                        </step>
+                    </steps>
+                </step>
+                <step start='1783467138956' status='failed' stop='1783467139338'>
+                    <name>Then la reponse doit avoir le statut 400 ""</name>
+                    <title>Then la reponse doit avoir le statut 400 ""</title>
+                    <attachments/>
+                    <steps>
+                        <step start='1783467138956' status='failed' stop='1783467139338'>
+                            <name>I see response code is 400</name>
+                            <title>I see response code is 400</title>
+                            <attachments/>
+                            <steps/>
+                        </step>
+                    </steps>
+                </step>
+            </steps>
+            <attachments/>
+            <failure>
+                <message>Response code is not the same as expected
+                
+                401 !== 400
+                </message>
+                <stack-trace>AssertionError [ERR_ASSERTION]: Response code is not the same as expected
+                
+                401 !== 400
+                
+                    at JSONResponse.seeResponseCodeIs (file:///C:/Users/PC/Desktop/hipay/hipay-Analyst/node_modules/codeceptjs/lib/helper/JSONResponse.js:97:12)
+                    at HelperStep.run (file:///C:/Users/PC/Desktop/hipay/hipay-Analyst/node_modules/codeceptjs/lib/step/helper.js:28:49)
+                    at file:///C:/Users/PC/Desktop/hipay/hipay-Analyst/node_modules/codeceptjs/lib/step/record.js:46:26</stack-trace>
+            </failure>
+        </test-case>
+        <test-case start='1783467139343' status='failed' stop='1783467139869'>
+            <name>Paiement refuse avec un payload vide @error @validation</name>
+            <title>Paiement refuse avec un payload vide @error @validation</title>
+            <labels>
+                <label name='language' value='javascript'/>
+                <label name='framework' value='codeceptjs'/>
+                <label name='tag' value='@payment'/>
+                <label name='tag' value='@error'/>
+                <label name='tag' value='@validation'/>
+            </labels>
+            <parameters/>
+            <steps>
+                <step start='1783467139358' status='passed' stop='1783467139484'>
+                    <name>When j'envoie une requete POST sur "/v1/connector/order" avec un payload vide ""</name>
+                    <title>When j'envoie une requete POST sur "/v1/connector/order" avec un payload vide ""</title>
+                    <attachments/>
+                    <steps>
+                        <step start='1783467139358' status='passed' stop='1783467139482'>
+                            <name>I send post request "/v1/connector/order", {}</name>
+                            <title>I send post request "/v1/connector/order", {}</title>
+                            <attachments/>
+                            <steps/>
+                        </step>
+                    </steps>
+                </step>
+                <step start='1783467139484' status='failed' stop='1783467139869'>
+                    <name>Then la reponse doit avoir le statut 400 ""</name>
+                    <title>Then la reponse doit avoir le statut 400 ""</title>
+                    <attachments/>
+                    <steps>
+                        <step start='1783467139484' status='failed' stop='1783467139869'>
+                            <name>I see response code is 400</name>
+                            <title>I see response code is 400</title>
+                            <attachments/>
+                            <steps/>
+                        </step>
+                    </steps>
+                </step>
+            </steps>
+            <attachments/>
+            <failure>
+                <message>Response code is not the same as expected
+                
+                401 !== 400
+                </message>
+                <stack-trace>AssertionError [ERR_ASSERTION]: Response code is not the same as expected
+                
+                401 !== 400
+                
+                    at JSONResponse.seeResponseCodeIs (file:///C:/Users/PC/Desktop/hipay/hipay-Analyst/node_modules/codeceptjs/lib/helper/JSONResponse.js:97:12)
+                    at HelperStep.run (file:///C:/Users/PC/Desktop/hipay/hipay-Analyst/node_modules/codeceptjs/lib/step/helper.js:28:49)
+                    at file:///C:/Users/PC/Desktop/hipay/hipay-Analyst/node_modules/codeceptjs/lib/step/record.js:46:26</stack-trace>
+            </failure>
+        </test-case>
+        <test-case start='1783467139872' status='passed' stop='1783467139969'>
+            <name>Verification de la disponibilite du service @healthcheck @smoke</name>
+            <title>Verification de la disponibilite du service @healthcheck @smoke</title>
+            <labels>
+                <label name='language' value='javascript'/>
+                <label name='framework' value='codeceptjs'/>
+                <label name='tag' value='@payment'/>
+                <label name='tag' value='@healthcheck'/>
+                <label name='tag' value='@smoke'/>
+            </labels>
+            <parameters/>
+            <steps>
+                <step start='1783467139882' status='passed' stop='1783467139969'>
+                    <name>When j'envoie une requete GET sur "/v1/connector/healthcheck" ""</name>
+                    <title>When j'envoie une requete GET sur "/v1/connector/healthcheck" ""</title>
+                    <attachments/>
+                    <steps>
+                        <step start='1783467139882' status='passed' stop='1783467139966'>
+                            <name>I send get request "/v1/connector/healthcheck"</name>
+                            <title>I send get request "/v1/connector/healthcheck"</title>
+                            <attachments/>
+                            <steps/>
+                        </step>
+                    </steps>
+                </step>
+                <step start='1783467139969' status='passed' stop='1783467139969'>
+                    <name>Then la reponse doit avoir le statut 200 ""</name>
+                    <title>Then la reponse doit avoir le statut 200 ""</title>
+                    <attachments/>
+                    <steps>
+                        <step start='1783467139969' status='passed' stop='1783467139969'>
+                            <name>I see response code is 200</name>
+                            <title>I see response code is 200</title>
+                            <attachments/>
+                            <steps/>
+                        </step>
+                    </steps>
+                </step>
+            </steps>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>
