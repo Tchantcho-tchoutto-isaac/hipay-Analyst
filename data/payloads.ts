@@ -114,7 +114,7 @@ const testCustomData: CustomData = {
 // JDD - Parcours de test
 // ============================================================
 
-// ✅ Paiement minimal valide → 200 OK
+// Paiement minimal valide → 200 OK
 export const validMinimalPayload: OrderPayload = {
   order: {
     order_id: `ORDER_${Date.now()}`,
@@ -127,7 +127,7 @@ export const validMinimalPayload: OrderPayload = {
   }
 };
 
-// ✅ Paiement complet valide → 200 OK
+// Paiement complet valide → 200 OK
 export const validFullPayload: OrderPayload = {
   order: {
     order_id: `ORDER_${Date.now()}`,
@@ -145,7 +145,7 @@ export const validFullPayload: OrderPayload = {
   }
 };
 
-// ❌ Sans montant → 400 Bad Request
+//  Sans montant → 400 Bad Request
 export const missingAmountPayload: OrderPayload = {
   order: {
     order_id: `ORDER_${Date.now()}`,
@@ -158,10 +158,10 @@ export const missingAmountPayload: OrderPayload = {
   }
 };
 
-// ❌ Payload vide → 400 Bad Request
+//  Payload vide → 400 Bad Request
 export const emptyPayload: OrderPayload = {};
 
-// ❌ Montant négatif → 400 Bad Request
+//  Montant négatif → 400 Bad Request
 export const negativeAmountPayload: OrderPayload = {
   order: {
     order_id: `ORDER_${Date.now()}`,

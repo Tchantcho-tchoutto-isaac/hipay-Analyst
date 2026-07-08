@@ -1,11 +1,11 @@
-# HiPay – QA Analyst | Automatisation API Order
+#  HiPay – QA Analyst | Automatisation API Order
 
-> **Test technique** – Analyse et Automatisation de l'API de Paiement HiPay  
-> Stack : CodeceptJS • Gherkin • JavaScript • Chai • GitHub Actions
+> **Test technique** – Analyse et Automatisation de l'API de Paiement HiPay
+> Stack : CodeceptJS • Gherkin • TypeScript • Chai • ESLint • GitHub Actions
 
 ---
 
-## Contexte
+##  Contexte
 
 En tant que QA Analyst dans une squad back chez HiPay, cette squad met en place une nouvelle **API Order** permettant d'exécuter des paiements en point de vente via le gateway Nepting.
 
@@ -20,7 +20,7 @@ En tant que QA Analyst dans une squad back chez HiPay, cette squad met en place 
 
 ### Ce que je teste et pourquoi
 
-L'API Order est le point d'entrée critique du parcours de paiement en magasin. Une défaillance impacte directement les transactions clients. La stratégie couvre trois axes :
+L'API Order est le point d'entrée critique du parcours de paiement en magasin. Une défaillance impacte directement les transactions clients. La stratégie couvre quatre axes :
 
 | Axe | Objectif |
 |---|---|
@@ -31,54 +31,80 @@ L'API Order est le point d'entrée critique du parcours de paiement en magasin. 
 
 ---
 
+
+
+###  Risques identifiés
+
+| Risque | Impact | Code | Mitigation |
+|---|---|---|---|
+| Credentials invalides | 🔴 Haute | 401 | Test @security |
+| Payload invalide | 🔴 Haute | 400 | Test @validation |
+| Terminal POS éteint | 🔴 Haute | 502 | Test @error |
+| Timeout terminal (> 10s) | 🟡 Moyenne | 504 | Test @error |
+| Passphrase non configurée | 🟡 Moyenne | 403 | Test @error |
+| Erreur serveur interne | 🟡 Moyenne | 500 | Monitoring |
+
+---
+
 ###  Scénarios identifiés
 
 | # | Scénario | Endpoint | Résultat attendu | Priorité |
 |---|---|---|---|---|
-| 1 | Paiement valide avec payload minimal | POST /v1/connector/order | 200 OK | 🔴 Haute |
-| 2 | Paiement valide avec payload complet | POST /v1/connector/order | 200 OK | 🔴 Haute |
+| 1 | Paiement valide avec payload minimal | POST /v1/connector/order | 200 + paymentStatus | 🔴 Haute |
+| 2 | Paiement valide avec payload complet | POST /v1/connector/order | 200 + paymentStatus | 🔴 Haute |
 | 3 | Payload vide | POST /v1/connector/order | 400 Bad Request | 🔴 Haute |
 | 4 | Champ `amount` manquant | POST /v1/connector/order | 400 Bad Request | 🔴 Haute |
 | 5 | Champ `serial_number` manquant | POST /v1/connector/order | 400 Bad Request | 🟡 Moyenne |
 | 6 | Authentification invalide | POST /v1/connector/order | 401 Unauthorized | 🔴 Haute |
-| 7 | Terminal POS non disponible | POST /v1/connector/order | 504 Gateway Timeout | 🟡 Moyenne |
-| 8 | Montant négatif | POST /v1/connector/order | 400 Bad Request | 🟡 Moyenne |
-| 9 | Healthcheck service UP | GET /v1/connector/healthcheck | 200 OK | 🔴 Haute |
+| 7 | Passphrase non configurée | POST /v1/connector/order | 403 Forbidden | 🟡 Moyenne |
+| 8 | Terminal POS éteint | POST /v1/connector/order | 502 Bad Gateway | 🟡 Moyenne |
+| 9 | Timeout terminal POS | POST /v1/connector/order | 504 Gateway Timeout | 🟡 Moyenne |
+| 10 | Healthcheck service UP | GET /v1/connector/healthcheck | 200 OK | 🔴 Haute |
 
 ---
 
-### 🤖 Scénarios automatisés
+###  Scénarios automatisés
 
-Les 3 scénarios prioritaires automatisés dans ce projet :
+| # | Scénario | Tag | Statut attendu |
+|---|---|---|---|
+| 1 | Paiement valide payload minimal | `@nominal @smoke` | 200 + paymentStatus |
+| 2 | Authentification invalide | `@security @error` | 401 |
+| 3 | Champ `amount` manquant | `@error @validation` | 400 |
+| 4 | Payload vide | `@error @validation` | 400 |
+| 5 | Healthcheck service | `@healthcheck @smoke` | 200 |
 
-1. ✅ **Paiement nominal** – payload minimal valide → 200 OK
-2. ❌ **Authentification invalide** – sans credentials → 401
-3. ⚠️ **Champ obligatoire manquant** – sans `amount` → 400
+>  **Note** : Sans credentials valides du back office HiPay Enterprise, l'API vérifie l'authentification avant la validation du payload. Les scénarios @validation retournent 401 au lieu de 400 en environnement de test sans back office. Avec des credentials valides, tous les scénarios retourneraient les codes attendus.
 
 ---
 
-##  Structure du projet
+## 🏗️ Structure du projet
 
 ```
 hipay-Analyst/
 ├── .github/
 │   └── workflows/
-│       └── ci.yml                  → Pipeline GitHub Actions
-├── features/
-│   └── payment.feature             → Scénarios Gherkin (BDD)
-├── step_definitions/
-│   └── payment_steps.js            → Implémentation des steps
-├── pages/
-│   └── OrderPage.js                → Page Object Model (API)
+│       └── ci.yml                    → Pipeline GitHub Actions (Lint + TNR + Smoke)
 ├── data/
-│   └── payloads.js                 → Données de test
-├── output/                         → Rapports d'exécution
-├── .env                            → Variables d'environnement (non commité)
-├── .env.example                    → Template des variables
+│   └── payloads.ts                   → DataTypes + Datasets + JDD
+├── features/
+│   └── order/
+│       └── create_order.feature      → Scénarios Gherkin (BDD)
+├── mochawesome-report/
+│   ├── mochawesome.html              → Rapport HTML d'exécution
+│   └── mochawesome.json             → Rapport JSON
+├── pages/
+│   └── OrderPage.ts                  → Page Object Model (appels API)
+├── step_definitions/
+│   └── order_steps.ts               → Liaison Gherkin ↔ code
+├── support/
+│   └── hooks.ts                     → Before/After hooks
+├── .env                             → Variables d'environnement (non commité)
 ├── .gitignore
-├── .gitattributes
-├── codecept.conf.js                → Configuration CodeceptJS
-└── package.json
+├── codecept.conf.ts                 → Configuration CodeceptJS
+├── eslint.config.js                 → Configuration ESLint
+├── package.json
+├── tsconfig.json
+└── README.md
 ```
 
 ---
@@ -89,14 +115,16 @@ hipay-Analyst/
 |---|---|
 | **CodeceptJS** | Framework de tests BDD |
 | **Gherkin** | Rédaction des scénarios en langage naturel |
-| **JavaScript** | Langage d'implémentation |
+| **TypeScript** | Langage d'implémentation |
 | **Chai** | Bibliothèque d'assertions |
 | **dotenv** | Gestion des variables d'environnement |
+| **ESLint** | Linter TypeScript |
+| **Mochawesome** | Rapport d'exécution HTML |
 | **GitHub Actions** | Pipeline CI/CD |
 
 ---
 
-##  Installation
+## ⚙️ Installation
 
 ### Prérequis
 - Node.js >= 24.x
@@ -117,17 +145,15 @@ npm ci
 
 ### Configurer les variables d'environnement
 
-```bash
-cp .env.example .env
-```
-
-Remplissez le fichier `.env` :
+Créez un fichier `.env` à la racine :
 
 ```env
 API_URL=https://cloudrun-api-yugcnet4yq-ew.a.run.app
 API_LOGIN=votre_login
 API_PASSWORD=votre_password
 ```
+
+> 
 
 ---
 
@@ -142,70 +168,73 @@ npm test
 ### Par tag
 
 ```bash
-# Tests nominaux uniquement
-npx codeceptjs run --grep @nominal
-
-# Tests d'erreurs uniquement
-npx codeceptjs run --grep @error
-
-# Tests de sécurité uniquement
-npx codeceptjs run --grep @security
+npm run test:smoke      # Smoke tests uniquement (@smoke)
+npm run test:nominal    # Tests nominaux (@nominal)
+npm run test:error      # Tests d'erreurs (@error)
+npm run test:security   # Tests sécurité (@security)
+npm run test:healthcheck # Healthcheck (@healthcheck)
 ```
 
-### Avec rapport détaillé
+### Avec rapport Mochawesome
 
 ```bash
-npx codeceptjs run --steps
+npm run test:report
+start mochawesome-report/mochawesome.html
+```
+
+### Linter
+
+```bash
+npm run lint
+npm run lint:fix
 ```
 
 ---
 
-## 📊 Rapport d'exécution
+## Rapport d'exécution
 
-Le rapport est généré automatiquement dans le dossier `output/` après chaque exécution.
+Le rapport Mochawesome est généré automatiquement dans `mochawesome-report/` après chaque exécution.
 
-```bash
-# Ouvrir le rapport
-open output/report.html
-```
-
-En CI/CD, le rapport est disponible dans les **Artifacts** de GitHub Actions.
+En CI/CD, le rapport est disponible dans les **Artifacts** de GitHub Actions (rétention 30 jours).
 
 ---
 
 ## 🔄 CI/CD
 
-Le pipeline GitHub Actions se déclenche automatiquement à chaque :
-- **Push** sur `main`
-- **Pull Request** vers `main`
+### Déclencheurs
 
-### Étapes du pipeline
+| Événement | Lint | Smoke + TNR |
+|---|---|---|
+| Push `main` ou `feature/**` | ✅ | ❌ |
+| Pull Request vers `main` | ✅ | ❌ |
+| Cron 7h (Lun-Ven) | ✅ | ✅ |
+| Manuel `workflow_dispatch` | ✅ | ✅ |
+
+### Flux du pipeline
 
 ```
-Checkout → Install → Lint → Tests → Upload rapport
+Push/PR          → Lint uniquement
+Cron 7h / Manuel → Lint → Smoke Tests → TNR complets → Email équipe
 ```
 
 ### Variables secrètes GitHub
 
-Configurées dans **Settings → Secrets and variables → Actions** :
-
 | Secret | Description |
 |---|---|
 | `API_URL` | URL de l'environnement Stage |
-| `API_KEY` | Clé d'authentification HiPay |
+| `API_LOGIN` | Login API HiPay |
+| `API_PASSWORD` | Password API HiPay |
+| `MAIL_USERNAME` | Email expéditeur Gmail |
+| `MAIL_PASSWORD` | App password Gmail |
+| `TEAM_EMAIL` | Email(s) de l'équipe |
 
 ---
 
-##  Stratégie de branches
+## Stratégie de branches
 
 ```
 main                          → code stable, pipeline déclenché au merge
-└── feature/order-automation  → automatisation des tests API Order
+└── feature/order-automation  → automatisation des tests API Order HiPay
 ```
 
 ---
-
-## 👤 Auteur
-
-**Tchantcho-tchoutto Isaac**  
-QA Analyst – Test Technique HiPay
