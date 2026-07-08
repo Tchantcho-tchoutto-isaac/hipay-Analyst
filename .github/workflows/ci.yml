@@ -96,13 +96,13 @@ jobs:
             🤖 Rapport TNR HiPay API Order
             ========================================
 
-            📅 Date         : ${{ github.event.repository.updated_at }}
-            🌿 Branche      : ${{ github.ref_name }}
-            🔁 Run ID       : ${{ github.run_id }}
-            🎯 Déclencheur  : ${{ github.event_name }}
+              Date         : ${{ github.event.repository.updated_at }}
+              Branche      : ${{ github.ref_name }}
+              Run ID       : ${{ github.run_id }}
+              Déclencheur  : ${{ github.event_name }}
 
-            🚀 Smoke Tests  : ${{ steps.smoke.outcome == 'success' && '✅ PASSED' || '❌ FAILED' }}
-            🧪 TNR Complets : ${{ steps.tnr.outcome == 'success' && '✅ PASSED' || steps.smoke.outcome != 'success' && '⏭️ SKIPPED' || '❌ FAILED' }}
+              Smoke Tests  : ${{ steps.smoke.outcome == 'success' && '✅ PASSED' || '❌ FAILED' }}
+              TNR Complets : ${{ steps.tnr.outcome == 'success' && '✅ PASSED' || steps.smoke.outcome != 'success' && '⏭️ SKIPPED' || '❌ FAILED' }}
 
             🔗 Voir le rapport complet :
             https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}

@@ -14,5 +14,5 @@ Before(async () => {
     'Authorization': `Basic ${credentials}`
   };
 
-  console.log('🚀 Auth configurée pour les tests HiPay');
+  console.log(' Auth configurée pour les tests HiPay');
 });
