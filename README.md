@@ -73,8 +73,7 @@ L'API Order est le point d'entrée critique du parcours de paiement en magasin. 
 | 4 | Payload vide | `@error @validation` | 400 |
 | 5 | Healthcheck service | `@healthcheck @smoke` | 200 |
 
->  **Note** : Sans credentials valides du back office HiPay Enterprise, l'API vérifie l'authentification avant la validation du payload. Les scénarios @validation retournent 401 au lieu de 400 en environnement de test sans back office. Avec des credentials valides, tous les scénarios retourneraient les codes attendus.
-
+>  
 ---
 
 ## 🏗️ Structure du projet
@@ -228,8 +227,7 @@ Cron 7h / Manuel → Lint → Smoke Tests → TNR complets → Email équipe
 | `MAIL_PASSWORD` | App password Gmail |
 | `TEAM_EMAIL` | Email(s) de l'équipe |
 
----
-
+-
 ## Stratégie de branches
 
 ```

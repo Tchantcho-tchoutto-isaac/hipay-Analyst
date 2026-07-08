@@ -1,8 +1,6 @@
 import { OrderPayload } from '../data/payloads';
 
-// ============================================================
 // Page Object - API Order HiPay
-// ============================================================
 
 class OrderPage {
 
