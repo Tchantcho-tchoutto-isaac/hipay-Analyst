@@ -8,6 +8,7 @@ Feature: API Order HiPay - Payment Flow
   Scenario: Paiement valide avec les informations obligatoires uniquement
     When j'envoie une requete POST sur "/v1/connector/order" avec un payload minimal valide
     Then la reponse doit avoir le statut 200
+    And la reponse doit contenir un "paymentStatus"
 
   @security @error
   Scenario: Paiement refuse avec une authentification invalide
