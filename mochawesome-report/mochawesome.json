@@ -1,0 +1,281 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 5,
+    "passes": 2,
+    "pending": 0,
+    "failures": 3,
+    "start": "2026-07-07T23:33:44.012Z",
+    "end": "2026-07-07T23:33:46.015Z",
+    "duration": 2003,
+    "testsRegistered": 5,
+    "passPercent": 40,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "86e8ee06-e226-4142-9b6e-866248b27499",
+      "title": "",
+      "fullFile": "C:\\Users\\PC\\Desktop\\hipay\\hipay-Analyst\\features\\order\\create_order.feature",
+      "file": "\\features\\order\\create_order.feature",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "bda5c78e-d038-4583-b0a3-43bfbe966711",
+          "title": "API Order HiPay - Payment Flow @payment",
+          "fullFile": "C:\\Users\\PC\\Desktop\\hipay\\hipay-Analyst\\features\\order\\create_order.feature",
+          "file": "\\features\\order\\create_order.feature",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook: codeceptjs.beforeSuite in \"API Order HiPay - Payment Flow @payment\"",
+              "fullTitle": "API Order HiPay - Payment Flow @payment \"before all\" hook: codeceptjs.beforeSuite in \"API Order HiPay - Payment Flow @payment\"",
+              "timedOut": false,
+              "duration": 1,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const doneFn = makeDoneCallableOnce(done)\nrecorder.startUnlessRunning()\n// Set up error handler for suite setup\nrecorder.errHandler(err => {\n  doneFn(err)\n})\nimport('./suite.js')\n  .then(suiteModule => {\n    const { enhanceMochaSuite } = suiteModule.default || suiteModule\n    event.emit(event.suite.before, enhanceMochaSuite(suite))\n    recorder.add(() => doneFn())\n  })\n  .catch(err => {\n    doneFn(err)\n  })",
+              "err": {},
+              "uuid": "4cad8f1d-f091-4eff-8b10-d9840a77b970",
+              "parentUUID": "bda5c78e-d038-4583-b0a3-43bfbe966711",
+              "isHook": true,
+              "skipped": false
+            },
+            {
+              "title": "\"before each\" hook: codeceptjs.before in \"API Order HiPay - Payment Flow @payment\"",
+              "fullTitle": "API Order HiPay - Payment Flow @payment \"before each\" hook: codeceptjs.before in \"API Order HiPay - Payment Flow @payment\"",
+              "timedOut": false,
+              "duration": 1,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// In Mocha, 'this' is the hook Context; currentTest is the running scenario\nsetup(this)(done)",
+              "err": {},
+              "uuid": "06140563-0a53-4b95-b186-bc6150659f8d",
+              "parentUUID": "bda5c78e-d038-4583-b0a3-43bfbe966711",
+              "isHook": true,
+              "skipped": false
+            },
+            {
+              "title": "\"before each\" hook: Before in \"API Order HiPay - Payment Flow @payment\"",
+              "fullTitle": "API Order HiPay - Payment Flow @payment \"before each\" hook: Before in \"API Order HiPay - Payment Flow @payment\"",
+              "timedOut": false,
+              "duration": 7,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "runSteps(child.background.steps)",
+              "err": {},
+              "uuid": "1c84a710-c0c2-4b07-92a1-1d7c9c4cc683",
+              "parentUUID": "bda5c78e-d038-4583-b0a3-43bfbe966711",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [
+            {
+              "title": "\"after all\" hook: codeceptjs.afterSuite in \"API Order HiPay - Payment Flow @payment\"",
+              "fullTitle": "API Order HiPay - Payment Flow @payment \"after all\" hook: codeceptjs.afterSuite in \"API Order HiPay - Payment Flow @payment\"",
+              "timedOut": false,
+              "duration": 0,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const doneFn = makeDoneCallableOnce(done)\nrecorder.startUnlessRunning()\n// Set up error handler for suite teardown\nrecorder.errHandler(err => {\n  doneFn(err)\n})\nimport('./suite.js')\n  .then(suiteModule => {\n    const { enhanceMochaSuite } = suiteModule.default || suiteModule\n    event.emit(event.suite.after, enhanceMochaSuite(suite))\n    recorder.add(() => doneFn())\n  })\n  .catch(err => {\n    doneFn(err)\n  })",
+              "err": {},
+              "uuid": "a7e8606e-a654-47eb-9efc-6b6a6d8f275c",
+              "parentUUID": "bda5c78e-d038-4583-b0a3-43bfbe966711",
+              "isHook": true,
+              "skipped": false
+            },
+            {
+              "title": "\"after each\" hook: codeceptjs.after in \"API Order HiPay - Payment Flow @payment\"",
+              "fullTitle": "API Order HiPay - Payment Flow @payment \"after each\" hook: codeceptjs.after in \"API Order HiPay - Payment Flow @payment\"",
+              "timedOut": false,
+              "duration": 0,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "teardown(this)(done)",
+              "err": {},
+              "uuid": "678290f3-274e-481d-823f-d09b867eed61",
+              "parentUUID": "bda5c78e-d038-4583-b0a3-43bfbe966711",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [
+            {
+              "title": "Paiement valide avec les informations obligatoires uniquement @nominal @smoke",
+              "fullTitle": "API Order HiPay - Payment Flow @payment: Paiement valide avec les informations obligatoires uniquement @nominal @smoke",
+              "timedOut": false,
+              "duration": 662,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "runSteps(child.scenario.steps)",
+              "err": {
+                "message": "AssertionError: Response code is not the same as expected\n\n401 !== 200\n",
+                "estack": "AssertionError [ERR_ASSERTION]: Response code is not the same as expected\n\n401 !== 200\n\n    at JSONResponse.seeResponseCodeIs (file:///C:/Users/PC/Desktop/hipay/hipay-Analyst/node_modules/codeceptjs/lib/helper/JSONResponse.js:97:12)\n    at HelperStep.run (file:///C:/Users/PC/Desktop/hipay/hipay-Analyst/node_modules/codeceptjs/lib/step/helper.js:28:49)\n    at file:///C:/Users/PC/Desktop/hipay/hipay-Analyst/node_modules/codeceptjs/lib/step/record.js:46:26",
+                "diff": "- 401\n+ 200\n"
+              },
+              "uuid": "ee73dd31-2bc3-4d11-8849-bb13c491c775",
+              "parentUUID": "bda5c78e-d038-4583-b0a3-43bfbe966711",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Paiement refuse avec une authentification invalide @security @error",
+              "fullTitle": "API Order HiPay - Payment Flow @payment: Paiement refuse avec une authentification invalide @security @error",
+              "timedOut": false,
+              "duration": 179,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "runSteps(child.scenario.steps)",
+              "err": {},
+              "uuid": "d9beb208-0be9-4e4e-aea0-17888e9300bb",
+              "parentUUID": "bda5c78e-d038-4583-b0a3-43bfbe966711",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Paiement refuse avec un champ obligatoire manquant @error @validation",
+              "fullTitle": "API Order HiPay - Payment Flow @payment: Paiement refuse avec un champ obligatoire manquant @error @validation",
+              "timedOut": false,
+              "duration": 499,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "runSteps(child.scenario.steps)",
+              "err": {
+                "message": "AssertionError: Response code is not the same as expected\n\n401 !== 400\n",
+                "estack": "AssertionError [ERR_ASSERTION]: Response code is not the same as expected\n\n401 !== 400\n\n    at JSONResponse.seeResponseCodeIs (file:///C:/Users/PC/Desktop/hipay/hipay-Analyst/node_modules/codeceptjs/lib/helper/JSONResponse.js:97:12)\n    at HelperStep.run (file:///C:/Users/PC/Desktop/hipay/hipay-Analyst/node_modules/codeceptjs/lib/step/helper.js:28:49)\n    at file:///C:/Users/PC/Desktop/hipay/hipay-Analyst/node_modules/codeceptjs/lib/step/record.js:46:26",
+                "diff": "- 401\n+ 400\n"
+              },
+              "uuid": "7ce7b1fd-121b-440d-94db-c768e46c7b28",
+              "parentUUID": "bda5c78e-d038-4583-b0a3-43bfbe966711",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Paiement refuse avec un payload vide @error @validation",
+              "fullTitle": "API Order HiPay - Payment Flow @payment: Paiement refuse avec un payload vide @error @validation",
+              "timedOut": false,
+              "duration": 541,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "runSteps(child.scenario.steps)",
+              "err": {
+                "message": "AssertionError: Response code is not the same as expected\n\n401 !== 400\n",
+                "estack": "AssertionError [ERR_ASSERTION]: Response code is not the same as expected\n\n401 !== 400\n\n    at JSONResponse.seeResponseCodeIs (file:///C:/Users/PC/Desktop/hipay/hipay-Analyst/node_modules/codeceptjs/lib/helper/JSONResponse.js:97:12)\n    at HelperStep.run (file:///C:/Users/PC/Desktop/hipay/hipay-Analyst/node_modules/codeceptjs/lib/step/helper.js:28:49)\n    at file:///C:/Users/PC/Desktop/hipay/hipay-Analyst/node_modules/codeceptjs/lib/step/record.js:46:26",
+                "diff": "- 401\n+ 400\n"
+              },
+              "uuid": "efffce8c-2e3e-4819-8567-33c6ea48e741",
+              "parentUUID": "bda5c78e-d038-4583-b0a3-43bfbe966711",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Verification de la disponibilite du service @healthcheck @smoke",
+              "fullTitle": "API Order HiPay - Payment Flow @payment: Verification de la disponibilite du service @healthcheck @smoke",
+              "timedOut": false,
+              "duration": 77,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "runSteps(child.scenario.steps)",
+              "err": {},
+              "uuid": "eb3cb9c6-eb2f-487a-821c-1de0185190e9",
+              "parentUUID": "bda5c78e-d038-4583-b0a3-43bfbe966711",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "d9beb208-0be9-4e4e-aea0-17888e9300bb",
+            "eb3cb9c6-eb2f-487a-821c-1de0185190e9"
+          ],
+          "failures": [
+            "ee73dd31-2bc3-4d11-8849-bb13c491c775",
+            "7ce7b1fd-121b-440d-94db-c768e46c7b28",
+            "efffce8c-2e3e-4819-8567-33c6ea48e741"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 1958,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 0
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 0
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "11.7.5"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {},
+      "version": "6.3.2"
+    }
+  }
+}
